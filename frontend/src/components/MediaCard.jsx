@@ -5,7 +5,13 @@ import AuthContext from '../context/AuthContext';
 import { getApiUrl } from '../utils/api';
 
 const MediaCard = ({ item }) => {
-    // ...
+    // Resolve thumbnail path - backend gives ./assets/..., we need /assets/...
+    const imagePath = thumbnail.regular.small.replace('./assets', '/assets');
+
+    const handleCardClick = () => {
+        navigate(`/movie/${id}`);
+    };
+
     const handleBookmarkToggle = (e) => {
         e.stopPropagation();
 
