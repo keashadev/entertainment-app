@@ -5,6 +5,10 @@ import AuthContext from '../context/AuthContext';
 import { getApiUrl } from '../utils/api';
 
 const MediaCard = ({ item }) => {
+    const { id, title, thumbnail, year, category, rating, isBookmarked } = item;
+    const { token } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     // Resolve thumbnail path - backend gives ./assets/..., we need /assets/...
     const imagePath = thumbnail.regular.small.replace('./assets', '/assets');
 
