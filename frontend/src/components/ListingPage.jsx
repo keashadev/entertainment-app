@@ -15,7 +15,7 @@ const ListingPage = ({ title, categoryFilter, bookmarkFilter }) => {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
-        fetch('http://localhost:3000/api/entertainment', { headers })
+        fetch(`${import.meta.env.VITE_API_URL}/api/entertainment`, { headers })
             .then(res => res.json())
             .then(data => {
                 let filtered = data;

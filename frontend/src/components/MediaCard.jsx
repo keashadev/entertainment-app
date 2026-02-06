@@ -17,7 +17,7 @@ const MediaCard = ({ item }) => {
     const handleBookmarkToggle = (e) => {
         e.stopPropagation();
 
-        fetch('http://localhost:3000/api/entertainment/bookmark', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/entertainment/bookmark`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

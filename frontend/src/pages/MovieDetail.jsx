@@ -16,7 +16,7 @@ const MovieDetail = () => {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
-        fetch(`http://localhost:3000/api/entertainment/${id}`, { headers })
+        fetch(`${import.meta.env.VITE_API_URL}/api/entertainment/${id}`, { headers })
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Movie not found');
@@ -52,7 +52,7 @@ const MovieDetail = () => {
     const imagePath = movie.thumbnail.regular.large.replace('./assets', '/assets');
 
     const handleBookmarkToggle = () => {
-        fetch('http://localhost:3000/api/entertainment/bookmark', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/entertainment/bookmark`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

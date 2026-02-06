@@ -8,7 +8,7 @@ const Bookmarked = () => {
     const { token } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/entertainment/bookmarked', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/entertainment/bookmarked`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

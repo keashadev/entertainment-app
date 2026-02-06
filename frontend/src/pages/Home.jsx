@@ -8,7 +8,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/entertainment')
+        fetch(`${import.meta.env.VITE_API_URL}/api/entertainment`)
             .then(res => res.json())
             .then(data => {
                 setData(data);
