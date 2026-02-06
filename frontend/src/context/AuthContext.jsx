@@ -7,13 +7,11 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
 
     useEffect(() => {
-        useEffect(() => {
-            if (token) {
-                // TODO: Implement /me endpoint to validate token on load.
-                // Currently optimistic; assumes token presence equals valid session.
-                setUser({ email: 'user@example.com' });
-            }
-        }, [token]);
+        if (token) {
+            // TODO: Implement /me endpoint to validate token on load.
+            // Currently optimistic; assumes token presence equals valid session.
+            setUser({ email: 'user@example.com' });
+        }
     }, [token]);
 
     const login = (userData, authToken) => {
