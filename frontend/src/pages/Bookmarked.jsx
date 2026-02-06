@@ -19,22 +19,26 @@ const Bookmarked = () => {
                 const data = await response.json();
                 setMovies(data);
                 setLoading(false);
-            })
-        .catch(err => console.error(err));
-}, [token]);
+            } catch (err) {
+                console.error(err);
+                setLoading(false);
+            }
+        };
+        fetchBookmarked();
+    }, [token]);
 
-if (loading) return <div className="text-white heading-l p-8">Loading...</div>;
+    if (loading) return <div className="text-white heading-l p-8">Loading...</div>;
 
-return (
-    <div className="text-white">
-        <h1 className="heading-l mb-6">Bookmarked Movies</h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-            {movies.map(movie => (
-                <MediaCard key={movie.id} item={movie} />
-            ))}
+    return (
+        <div className="text-white">
+            <h1 className="heading-l mb-6">Bookmarked Movies</h1>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                {movies.map(movie => (
+                    <MediaCard key={movie.id} item={movie} />
+                ))}
+            </div>
         </div>
-    </div>
-);
+    );
 };
 
 export default Bookmarked;

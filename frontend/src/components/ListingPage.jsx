@@ -37,31 +37,35 @@ const ListingPage = ({ title, categoryFilter, bookmarkFilter }) => {
                 }
                 setData(filtered);
                 setLoading(false);
-            })
-        .catch(err => console.error("Error fetching data:", err));
-}, [categoryFilter, bookmarkFilter, token]);
+            } catch (err) {
+                console.error("Error fetching data:", err);
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [categoryFilter, bookmarkFilter, token]);
 
-const filteredData = data.filter(item =>
-    item.title.toLowerCase().includes(search.toLowerCase())
-);
+    const filteredData = data.filter(item =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+    );
 
-if (loading) return <div className="text-white text-center mt-20">Loading...</div>;
+    if (loading) return <div className="text-white text-center mt-20">Loading...</div>;
 
-return (
-    <div>
-        <SearchBar placeholder={`Search for ${title.toLowerCase()}`} onSearch={setSearch} />
-        <section>
-            <h2 className="heading-l mb-6">
-                {search ? `Found ${filteredData.length} results for '${search}'` : title}
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-7">
-                {filteredData.map((item) => (
-                    <MediaCard key={item.title} item={item} />
-                ))}
-            </div>
-        </section>
-    </div>
-);
+    return (
+        <div>
+            <SearchBar placeholder={`Search for ${title.toLowerCase()}`} onSearch={setSearch} />
+            <section>
+                <h2 className="heading-l mb-6">
+                    {search ? `Found ${filteredData.length} results for '${search}'` : title}
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-7">
+                    {filteredData.map((item) => (
+                        <MediaCard key={item.title} item={item} />
+                    ))}
+                </div>
+            </section>
+        </div>
+    );
 };
 
 export default ListingPage;
