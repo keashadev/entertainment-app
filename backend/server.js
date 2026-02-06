@@ -18,6 +18,15 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use(cors());
 app.use(express.json());
 
+// Health Check
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'active',
+    dbState: mongoose.connection.readyState, // 0=disconnected, 1=connected
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Routes configuration
 app.use('/api/entertainment', movieRoutes);
 app.use('/api/auth', authRoutes);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import MediaCard from '../components/MediaCard';
+import { getApiUrl } from '../utils/api';
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -8,13 +9,21 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/api/entertainment`)
-            .then(res => res.json())
-            .then(data => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(getApiUrl('/api/entertainment'));
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
                 setData(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
                 setLoading(false);
-            })
-            .catch(err => console.error("Error fetching data:", err));
+            }
+        };
+        fetchData();
     }, []);
 
     const filteredData = data.filter(item =>
