@@ -2,22 +2,14 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
+import { getApiUrl } from '../utils/api';
+
 const MediaCard = ({ item }) => {
-    const { id, title, year, category, rating, thumbnail, isBookmarked } = item;
-    const navigate = useNavigate();
-    const { token } = useContext(AuthContext);
-
-    // Resolve thumbnail path - backend gives ./assets/..., we need /assets/...
-    const imagePath = thumbnail.regular.small.replace('./assets', '/assets');
-
-    const handleCardClick = () => {
-        navigate(`/movie/${id}`);
-    };
-
+    // ...
     const handleBookmarkToggle = (e) => {
         e.stopPropagation();
 
-        fetch(`${import.meta.env.VITE_API_URL}/api/entertainment/bookmark`, {
+        fetch(getApiUrl('/api/entertainment/bookmark'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
