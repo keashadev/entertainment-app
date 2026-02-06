@@ -7,7 +7,7 @@ import TVSeries from './pages/TVSeries';
 import Bookmarked from './pages/Bookmarked';
 import MovieDetail from './pages/MovieDetail';
 
-import { AuthProvider, default as AuthContext } from './context/AuthContext';
+import AuthContext, { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
