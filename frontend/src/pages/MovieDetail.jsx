@@ -52,6 +52,19 @@ const MovieDetail = () => {
             .catch(err => console.error("Error toggling bookmark:", err));
     };
 
+    if (loading) {
+        return <div className="text-white text-center mt-20">Loading...</div>;
+    }
+
+    if (!movie) {
+        return <div className="text-white text-center mt-20">Movie not found</div>;
+    }
+
+    // Resolve thumbnail path
+    // We use the large regular thumbnail for the detail page if available, or fallback
+    const imagePath = movie.thumbnail?.regular?.large?.replace('./assets', '/assets') ||
+        movie.thumbnail?.regular?.medium?.replace('./assets', '/assets');
+
     return (
         <div className="text-white max-w-4xl mx-auto">
             <button
