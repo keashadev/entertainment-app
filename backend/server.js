@@ -18,6 +18,8 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use(cors());
 app.use(express.json());
 
+const data = require('./data'); // Import data for seeding
+
 // Health Check
 app.get('/health', (req, res) => {
   res.json({
@@ -25,6 +27,18 @@ app.get('/health', (req, res) => {
     dbState: mongoose.connection.readyState, // 0=disconnected, 1=connected
     timestamp: new Date().toISOString()
   });
+});
+
+// Seed Endpoint (Temporary)
+app.get('/api/seed', async (req, res) => {
+  try {
+    const Movie = require('./models/Movie'); // Lazy load model
+    await Movie.deleteMany({}); // Clear existing
+    await Movie.insertMany(data); // Insert new
+    res.json({ message: 'Database seeded successfully!', count: data.length });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Routes configuration
