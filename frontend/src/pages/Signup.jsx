@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import { getApiUrl } from '../utils/api';
 
 const Signup = () => {
     const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const Signup = () => {
         }
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
+            const response = await fetch(getApiUrl('/api/auth/signup'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -31,7 +32,8 @@ const Signup = () => {
                 throw new Error(data.message || 'Signup failed');
             }
 
-            // login(data.user, data.token); // Requested change: Don't auto-login
+            // Don't auto-login after signup, let them login manually or uncomment below
+            // login(data.user, data.token); 
             navigate('/login');
         } catch (err) {
             setError(err.message);
